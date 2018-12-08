@@ -1,9 +1,9 @@
 import express from 'express';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import bodyParser from 'body-parser';
-import schema from './data/schema';
+import schema from './src/schema';
 
-import {User} from './data/models/users';
+import {User} from './src/models/users';
 
 const GRAPHQL_PORT = 3000;
 const MONGO_PORT = 27017;

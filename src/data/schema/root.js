@@ -24,26 +24,26 @@ export const schema = `
 
 export const resolvers = {
     Query: {
-        async allUsers( _, args, {}) {
+        async allUsers( _, args) {
             return await db.User.find({});
         },
 
-        async user(_, args, {}) {
+        async user(_, args) {
             const user = await db.User.findById({_id: args._id});
             return [user];
         },
 
-        async allOrders(_, args, {}) {
+        async allOrders(_, args) {
             const orders = await db.Order.find();
             return orders;
         },
 
-        async allProducts(_, args, {}) {
+        async allProducts(_, args) {
             const products = await db.Product.find();
             return products;
         },
 
-        async allCategorys(_, args, {}){
+        async allCategorys(_, args){
             const categories = await db.Category.find();
             return categories; 
         }

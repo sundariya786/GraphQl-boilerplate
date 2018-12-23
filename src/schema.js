@@ -40,6 +40,9 @@ import {MergedSchema, MergedResolvers} from './data';
 //     }
 // `;
 
+console.log(',erge schema is  the  : ', MergedSchema);
+console.log(',erge resolver  is  the  : ', MergedResolvers);
+
 const schema = makeExecutableSchema({
   typeDefs: MergedSchema, 
   resolvers: MergedResolvers,

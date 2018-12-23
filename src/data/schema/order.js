@@ -20,7 +20,6 @@ export const resolvers = {
         id: ({ _id }) => _id,
         async product({productId}){
             const product =  await db.Product.find({_id: productId});
-            console.log('productId : ', productId, 'output : ', product);
             return product;
         }
     }

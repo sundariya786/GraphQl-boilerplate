@@ -19,7 +19,6 @@ export const resolvers = {
         async Product({categoryId}){
             const product =  await db.Product.find({categoryId: categoryId});
             return product
-            console.log('args', categoryId, ' \n product', Product);
         }
     }
 }

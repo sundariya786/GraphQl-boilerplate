@@ -1,4 +1,4 @@
-import { from } from 'apollo-link';
+// import { from } from 'apollo-link';
 
 export { default as User } from './users';
 

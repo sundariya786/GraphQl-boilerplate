@@ -1,15 +1,18 @@
 import Schema from './schema';
 import Mutations, { MutationDefinition } from './mutations';
-// import Subscriptions, { SubscriptionDefinition } from './subscriptions';
+import Subscriptions, { SubscriptionDefinition } from './subscriptions';
 
 const SchemaDefinition = `
   schema {
     query: Query
     mutation: Mutations
-  }
+    subscription: Subscriptions
+}
 `;
-const MergedSchema    = [SchemaDefinition, MutationDefinition];
-const MergedResolvers = { Mutations: {} };
+const MergedSchema    = [SchemaDefinition, MutationDefinition, SubscriptionDefinition];
+// const MergedSchema    = [SchemaDefinition, MutationDefinition];
+const MergedResolvers = { Mutations: {}, Subscriptions: {} };
+const setupFunctions  = {};
 
 Object.keys(Schema).forEach((key) => {
     const s = Schema[key];
@@ -26,11 +29,13 @@ Object.keys(Mutations).forEach((key) => {
     }
 });
 
+// // console.log('subscription: ', Subscriptions);
+Object.keys(Subscriptions).forEach((key) => {
 
-// Object.keys(Subscriptions).forEach((key) => {
-//     const s = Subscriptions[key];
-//     if (s.resolvers) Object.assign(MergedResolvers.Subscriptions, s.resolvers);
-//     if (s.setupFunctions) Object.assign(setupFunctions, s.setupFunctions);
-// });
+    const s = Subscriptions[key];
+    // console.log('s ', MergedResolvers.Subscriptions, '\nabc :', s.resolvers);
+    if (s.resolvers) Object.assign(MergedResolvers.Subscriptions, s.resolvers);
+    if (s.setupFunctions) Object.assign(setupFunctions, s.setupFunctions);
+});
 
-export { MergedSchema, MergedResolvers };
+export { MergedSchema, MergedResolvers, setupFunctions };

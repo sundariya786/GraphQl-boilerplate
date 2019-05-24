@@ -1,4 +1,5 @@
 import * as db from './../../models/index';
+import { User } from '../../methods';
 // import InputType from './inputTypes';
 export const mutations = `
 
@@ -8,7 +9,7 @@ export const mutations = `
     # ** name ** : * Name of the user *,
     #
     # ** surname **: * Surname of the user *
-    addUser(name: String!, surname: String!): User
+    addUser(firstName: String!, lastName: String, city: String, zip: Int!, games: [String], followers: [String], password: String!, mobile_num: Int, userName: String!, email: String, roles: [String], status: String, online: Boolean!, disabled: Boolean!): User
 
     #### A mutation to update the user
     # Pass the  user  id to  update  the user 
@@ -25,13 +26,8 @@ export const mutations = `
 `;
 
 export const resolvers = {
-    async addUser(_, args) {
-        const insertStatement = {
-            name: args.name,
-            surname: args.surname,
-        };
-        const user = await db.User.create(insertStatement)
-        return user;
+    async addUser(root, {firstName, lastName, city, zip, games, followers, password, mobile_num, userName, email, roles, status, online, disabled}) {
+        return await User.add({firstName, lastName, city, zip, games, followers, password, mobile_num, userName, email, roles, status, online, disabled});
     },
     async deleteUser(_, args) {
         return await db.User.deleteOne({_id: args.id});

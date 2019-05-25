@@ -7,15 +7,18 @@ export const schema = `
     type User {
         # A unique key  for the userid  
         id: String
-        # game user  use  to play array  of  string with  game  code 
-        games: [String]
         #followeres of the user "array  of user ids "
-        followers: [String]
+        followers: [User]
+        #creation date 
         createdAt: String
+        #user  profule  information
         profile: Profile
+        #disabled  or  enabled  user
         disabled: Boolean
+        #active  inactive  status 
         active: String
         online: Boolean
+        #store  password  and access  token 
         services: Services
     }
 
@@ -23,10 +26,9 @@ export const schema = `
     type Profile {
         firstName: String!
         lastName: String
-        city:String
-        zip: String
+        city:City
         mobileNumber: Int
-        games: [String]
+        games: [Game]
     }
 
     type Services {
@@ -41,12 +43,22 @@ export const resolvers = {
         async profile({ profile }) {
             return await db.Profile.findById({ _id: profile });
         },
-        services: ({ services }) => services
+        services: ({ services }) => services,
+        async followers({ followers }) {
+            return await db.User.find({ _id: { $in: followers } });
+        },
     },
 
     Profile: {
         firstName: ({ first_name }) => first_name,
         lastName: ({ last_name }) => last_name,
-        mobileNumber: ({ mobile_num }) => mobile_num
-    }
+        mobileNumber: ({ mobile_num }) => mobile_num,
+        async games({games}){
+            return await db.Game.find({ _id: {$in: games }});
+        },
+        async city({ city }){
+            return await db.City.findById({ _id: city });
+        }
+    },
+
 }

@@ -1,7 +1,7 @@
 import { Random } from "../healpers";
 import * as db from '../models/index';
 
-export async function add ({ firstName, lastName, city, zip, games, followers, password, mobile_num, userName, email, roles, status, online, disabled }) {
+export async function add ({ firstName, lastName, city, zip, games, followers, password, mobileNum, userName, email, roles, status, online, disabled }) {
     const userObject = {
         _id: Random.id(),
         roles,
@@ -9,18 +9,19 @@ export async function add ({ firstName, lastName, city, zip, games, followers, p
         online,
         status,
         disabled,
-        userName,
+        user_name: userName,
         email
     };
 
-    // if(mobile_num.length != 10)  throw new Error ('please  enter  valid mobile number ');
-
+    // if(mobileNum.length != 10)  throw new Error ('please  enter  valid mobile number ');
+    
     const profileObj = {
         first_name: firstName.trim(),
         last_name: lastName.trim(),
         city: city.trim(),
         zip,
-        games
+        games,
+        mobile_num: mobileNum
     };
 
     const profile = await db.Profile.create(profileObj);
@@ -33,5 +34,18 @@ export async function add ({ firstName, lastName, city, zip, games, followers, p
 
     return await db.User.create(userObject);
 
+}
 
+export async function login({ userName, password}) {
+    if(!userName.trim().length) throw new Error("please  enter  user  name");
+    if(!password.trim().length) throw new  Error ("please  enter password");
+    const loginObj = {
+        $or: [
+            { user_name: userName },
+            { email: userName },
+        ]
+    }
+    const user = await db.User.findOne(loginObj);
+    if(!user) throw new Error ("please  enter  valid  user  name or  email");
+    if(user.services.password == password) return user;
 }

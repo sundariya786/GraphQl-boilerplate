@@ -11,6 +11,7 @@ export const schema = `
         followers: [User]
         #creation date 
         createdAt: String
+        userName: String
         #user  profule  information
         profile: Profile
         #disabled  or  enabled  user
@@ -47,6 +48,7 @@ export const resolvers = {
         async followers({ followers }) {
             return await db.User.find({ _id: { $in: followers } });
         },
+        userName: ({ user_name }) => user_name
     },
 
     Profile: {

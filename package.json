@@ -17,7 +17,7 @@
     "graphql-server-module-graphiql": "^0.8.2",
     "graphql-subscriptions": "^0.4.3",
     "graphql-tools": "^1.0.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.13",
     "mongoose": "^4.13.14",
     "node-fetch": "^1.7.3",
     "sequelize": "^4.28.2",

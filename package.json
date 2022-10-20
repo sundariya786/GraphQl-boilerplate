@@ -18,7 +18,7 @@
     "graphql-subscriptions": "^0.4.3",
     "graphql-tools": "^1.0.0",
     "lodash": "^4.17.4",
-    "mongoose": "^4.13.14",
+    "mongoose": "^4.13.21",
     "node-fetch": "^1.7.3",
     "sequelize": "^4.28.2",
     "sqlite": "^2.9.0",
